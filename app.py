@@ -87,8 +87,16 @@ try:
         log_msg(f"Running in script mode. Base dir: {BASE_DIR}")
 
 
-    app.config['UPLOAD_FOLDER'] = os.path.join(BASE_DIR, 'uploads')
-    app.config['DOWNLOAD_FOLDER'] = os.path.join(BASE_DIR, 'downloads')
+    # Configure storage paths
+    # For cloud deployments (Render, Vercel), we must use /tmp as other directories are read-only
+    # For local EXE/Script, we use the app directory
+    if os.environ.get('VERCEL') or os.environ.get('RENDER'):
+        STORAGE_DIR = tempfile.gettempdir()
+    else:
+        STORAGE_DIR = BASE_DIR
+
+    app.config['UPLOAD_FOLDER'] = os.path.join(STORAGE_DIR, 'uploads')
+    app.config['DOWNLOAD_FOLDER'] = os.path.join(STORAGE_DIR, 'downloads')
     app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB limit
 
     # Ensure directories exist
