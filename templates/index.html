@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子书在线转换工具</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ version }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 电子书转换器</h1>
+            <p>轻松将 MOBI / EPUB 转换为 TXT</p>
+            <div class="copyright-notice" style="background-color: #fff3cd; color: #856404; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold; border: 1px solid #ffeeba;">
+                ⚠️ TingTing个人工作专用，请勿商业传播
+            </div>
+        </header>
+
+        <main>
+            <div class="upload-area" id="drop-zone">
+                <input type="file" id="file-input" multiple accept=".epub,.mobi" hidden>
+                <div class="icon">☁️</div>
+                <h3>点击或拖拽文件到此处</h3>
+                <p class="sub-text">支持 .epub, .mobi 格式 (最大 50MB)</p>
+            </div>
+
+            <!-- Action Bar: Start/Pause -->
+            <div id="action-bar" style="display:none; margin-bottom: 20px; padding: 15px; background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); align-items: center; gap: 15px;">
+                 <button id="start-convert-btn" class="primary-btn" style="background-color: #007bff; color: white; border: none; padding: 10px 25px; border-radius: 5px; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                    <span>▶</span> 开始转换
+                 </button>
+                 <button id="pause-convert-btn" class="secondary-btn" style="background-color: #ffc107; color: #333; border: none; padding: 10px 25px; border-radius: 5px; font-size: 1rem; cursor: pointer; display: none; align-items: center; gap: 5px;">
+                    <span>⏸</span> 暂停转换
+                 </button>
+                 <span id="queue-status" style="margin-left: auto; color: #666; font-size: 0.9rem;"></span>
+            </div>
+
+            <!-- Pending Queue Section -->
+            <div id="pending-section" style="display: none; margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: #555; border-left: 4px solid #007bff; padding-left: 10px;">⏳ 等待开始 / 转换中</h3>
+                <div class="file-list" id="pending-list">
+                    <!-- Pending files here -->
+                </div>
+            </div>
+
+            <!-- Completed Section -->
+            <div id="completed-section" style="display: none;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                    <h3 style="color: #555; border-left: 4px solid #28a745; padding-left: 10px;">✅ 转换完成</h3>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <label style="cursor: pointer; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;">
+                            <input type="checkbox" id="select-all" style="width: 16px; height: 16px;"> 
+                            <span>全选</span>
+                        </label>
+                        <button id="batch-download-btn" style="background-color: #28a745; color: white; border: none; padding: 6px 15px; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">批量下载</button>
+                    </div>
+                </div>
+                <div class="file-list" id="completed-list">
+                    <!-- Completed files here -->
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 电子书转换工具 | 简单 • 快速 • 安全</p>
+        </footer>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}?v={{ version }}"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+flask
+werkzeug
+EbookLib
+beautifulsoup4
+gunicorn

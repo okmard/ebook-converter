@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Flask
+instance/
+.webassets-cache
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# App specific
+uploads/
+downloads/
+*.log
+debug_force.txt
+
+# IDEs
+.vscode/
+.idea/
+*.swp
