@@ -171,12 +171,20 @@ try:
                     zf.write(file_path, fname)
         
         memory_file.seek(0)
-        return send_file(
-            memory_file,
-            mimetype='application/zip',
-            as_attachment=True,
-            attachment_filename='converted_ebooks.zip' # Flask 1.1.x use attachment_filename
-        )
+        
+        # Compatibility for Flask >= 2.0
+        import flask
+        kwargs = {
+            'mimetype': 'application/zip',
+            'as_attachment': True
+        }
+        
+        if int(flask.__version__.split('.')[0]) >= 2:
+            kwargs['download_name'] = 'converted_ebooks.zip'
+        else:
+            kwargs['attachment_filename'] = 'converted_ebooks.zip'
+
+        return send_file(memory_file, **kwargs)
 
     def find_free_port():
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
